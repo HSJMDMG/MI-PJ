@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Voter: 活动投票</title>
+
+
+
+
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+
+    <link rel='stylesheet' href='/stylesheets/icheck.css' />
+
+
+
+    <link rel='stylesheet' href='/stylesheets/buttons.css' />
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/checkActivity.css" />
+
+
+
+
+
+</head>
+<body>
+  <%if(typeof(user) !== 'undefined' && user){%>
+
+      <h1> 欢迎<%= user.username %>  <small><a claa="btn" href="/usrInfo/logout">退出</a></small></h1>
+      <h2> 活动编号：  <%= cookies.aid %> ,
+        <small>投票
+          <% if (voteinfo.votestatus == 1) { %>
+              进行中
+          <% }else{ %>
+              已结束
+          <% } %>
+
+
+        </small>
+
+        <a class="button button-large button-plain button-border button-circle" href="/usrInfo">
+          <i class="fa fa-reply">
+          </i>
+        </a>
+    </h2>
+
+<!--------------------->
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active" id="alltab"><a>投票界面</a></li>
+    <li role="presentation" id="startertab"><a>活动信息</a></li>
+
+</ul>
+<div class="tab-content">
+    <div class="tab-panel active" id="all">
+
+    </div>
+    <div class="tab-panel hidden" id="starter">
+
+    </div>
+
+</div>
+
+
+<!-------------------->
+
+<%= voteinfo.colname %>
+        <thead>
+          <tr>
+            <th></th>
+
+            <% voteinfo.colname.forEach(function(value){ %>
+                <th>
+                    <%= value %>
+                </th>
+                <%})%>
+          </tr>
+        </thead>
+        <tbody>
+
+            <% voteinfo.allresult.forEach(function(allresultrow, i){ %>
+
+              <tr>
+
+                    <td><%= voteinfo.rowname[i] %></td>
+
+
+                    <% allresultrow.forEach(function (valueall, j) { %>
+                      <td>
+                        <% if (voteinfo.personalresult[i][j] == 1) { %>
+                           <button class="button button-tiny button-glow button-circle button-royal button-jumbo"><i class="fa fa-thumbs-up"></i></button>
+
+                        <% } else { %>
+                          <button class="button button-tiny button-glow button-border button-circle button-royal"><i class="fa fa-thumbs-up"></i></button>
+
+                        <% } %>
+
+                        <%= voteinfo.allresult[i][j] %>
+                      </td>
+
+                    <% }) %>
+
+              </tr>
+
+            <%})%>
+
+
+        </tbody>
+
+      </table>
+
+  </div>
+
+
+
+
+  <%}else{%>
+
+                <h1>Welcome  , <a clas="btn" href="/login">请登录！！</a></h1>
+
+  <%}%>
+
+
+
+
+
+  <script src='/javascripts/d3.min.js'></script>
+  <script src='/javascripts/jquery.min.js'></script>
+  <script src='/javascripts/icheck.min.js'></script>
+  <script src='/javascripts/bootstrap.min.js'></script>
+
+
+
+
+
+
+
+</body>

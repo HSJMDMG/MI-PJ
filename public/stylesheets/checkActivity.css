@@ -1,0 +1,18 @@
+
+.nav-tabs {
+    border-bottom: 2px solid #7B72E9;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: #ffffff;
+  background-color: #7B72E9;
+  border: #7B72E9；
+
+}
+.button {
+  background-color: #7B72E9;
+  border: #7B72E9
+}
+.hidden {
+  display: none
+}

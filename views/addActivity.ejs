@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--  <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+    <title>Voter - 创建新活动</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/buttons.css' />
+    <link rel='stylesheet' href='/stylesheets/icheck.css' />
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/signin.css" />
+
+</head>
+
+<body>
+    <div class="container-fluid" id="container">
+      <% if (locals.success) { %>
+        <div id="alt_sucess" class="alert alert-success">
+          <%- success %>
+        </div>
+     <% } %>
+
+      <% if (locals.error) { %>
+        <div id="alt_warning" class="alert alert-warning">
+          <%= error %>
+        </div>
+      <% } %>
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加新活动</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post">
+            <label class="control-label" for="activityname">活动名称</label>
+            <div class="form-group">
+               <input id="activityname" name="activityname" type="text" class="form-control" placeholder="活动名称" required autofocus />
+           </div>
+
+           <label class="control-label" for="starter">发起人</label>
+           <div class="form-group">
+
+              <p id="starter" name="starter" class="form-control">
+                <%= user.username %>
+              </p>
+           </div>
+
+
+           <div class="form-group">
+
+                 <label class="control-label" for="votetype"> </label>
+                   <select name="votetype" class="form-control">
+                    <option>WeekDay</option>
+                    <option>WeekDay</option>
+                    <option>WeekDay</option>
+                    <option>WeekDay</option>
+                    <option>WeekDay</option>
+                  </select>
+
+           </div>
+
+          <div class="form-group">
+              <button id="btnSub" class="button button-3d button-royal button-pill" type="submit">提  交</button>
+          </div>
+
+
+          </form>
+
+        </div>
+    </div>
+
+
+    </div>
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+       String.prototype.format = function (args) {
+              var result = this;
+              if (arguments.length > 0) {
+                  if (arguments.length == 1 && typeof (args) == "object") {
+                      for (var key in args) {
+                          if (args[key] != undefined) {
+                              var reg = new RegExp("({" + key + "})", "g");
+                              result = result.replace(reg, args[key]);
+                          }
+                      }
+                  }
+                  else {
+                      for (var i = 0; i < arguments.length; i++) {
+                          if (arguments[i] != undefined) {
+                              var reg = new RegExp("({)" + i + "(})", "g");
+                              result = result.replace(reg, arguments[i]);
+                          }
+                      }
+                  }
+              }
+              return result;
+      }
+
+
+  </script>
+</body>
+
+</html>

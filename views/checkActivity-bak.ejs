@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Voter: 活动投票</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+
+    <link rel='stylesheet' href='/stylesheets/icheck.css' />
+
+
+
+    <link rel='stylesheet' href='/stylesheets/buttons.css' />
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/checkActivity.css" />
+
+
+</head>
+
+<body>
+  <!--
+  <%= typeof(user)%>
+
+    <%if(typeof(user) !== 'undefined' && user){%>
+
+        <h1> 欢迎<%= user.username %>  <small><a claa="btn" href="/usrInfo/logout">退出</a></small></h1>
+        <h2> 活动编号：  <%= cookies.aid %> ,
+          <small>投票
+            <% if (voteinfo.votestatus == 1) { %>
+                进行中
+            <% }else{ %>
+                已结束
+            <% } %>
+
+
+          </small>
+
+          <a class="button button-large button-plain button-border button-circle" href="/usrInfo">
+            <i class="fa fa-reply">
+            </i>
+          </a>
+        </h2>
+-->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" id="alltab"><a>投票界面</a></li>
+            <li role="presentation" id="startertab"><a>活动信息</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-panel active" id="all">
+
+            </div>
+            <div class="tab-panel hidden" id="starter">
+
+            </div>
+
+        </div>
+
+        <div class="activity-container">
+
+            <table class="table table-bordered">
+                <thead>
+                    <td></td>
+                    <!--
+                    <% voteinfo.colname.forEach(function(value){ %>
+                        <td>
+                            <%= value %>
+                        </td>
+                        <%})%>
+                      -->
+                </thead>
+
+                <tbody>
+
+                    <input type="checkbox">
+                    <input type="checkbox" checked>
+                    <input type="radio" name="iCheck">
+                    <input type="radio" name="iCheck" checked>
+                    <!--
+                    <% voteinfo.rowname.forEach(function(row_tag, i) { %>
+
+                      <tr>
+                        <td>
+                            <=% row_tag %>
+                        </td>
+
+                        <% voteinfo.allresult[i].forEach(function(allres_num, j)){ %>
+                        <td>
+                          <%= voteinfo.allresult[i][j] %>
+                          <% if (voteinfo.personalresult[i][j] == 1) { %>
+                            <input type="checkbox" checked>
+                          <% } else{ %>
+                            <input type="checkbox">
+                          <% } %>
+                        </td>
+                        <% } }) %>
+
+
+
+                      </tr>
+
+
+
+                    <% if (typeof(useractivity) !== 'undefined' && useractivity) { %>
+                        <% useractivity.forEach(function(item){ %>
+                            <tr status=< %=item.votestatus%>>
+                                <td>
+                                    <%= item.aid %>
+                                </td>
+                                <td>
+                                    <%= item.activityname %>
+                                </td>
+                                <td>
+                                    <%= item.starter %>
+                                </td>
+                                <td>
+                                    <%if (item.votestatus == 1){%>
+                                        进行中
+                                        <%} else {%>
+                                            已结束
+                                            <%}%>
+
+                                </td>
+                                <td>
+
+                                    <form role="form" method="post">
+                                        <input type="text" class="form-control hidden" id=< %=item.aid%> name = "aid" value =
+                                        <%=item.aid%> />
+                                            <button type="submit" class="button button-royal button-tiny" aid=< %=item.aid%>> 查看</button>
+                                    </form>
+
+
+                                </td>
+                            </tr>
+                            <% }) %>
+                                </tr>
+                                <% } %>
+
+                              -->
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+  <!--      <%}else{%> -->
+
+            <h1>Welcome  , <a clas="btn" href="/login">请登录！！</a></h1>
+
+  <!--          <%}%> -->
+
+
+                <script src='/javascripts/d3.min.js'></script>
+                <script src='/javascripts/bootstrap.min.js'></script>
+                <script src='/javascripts/echarts.min.js'></script>
+                <script src='/javascripts/icheck.min.js'></script>
+                <script src='/javascripts/jquery.min.js'></script>
+
+
+                <script>
+                    $(document).ready(function() {
+                        $('input').iCheck({
+                            checkboxClass: 'icheckbox_flat-purple',
+                            radioClass: 'iradio_flat-purple'
+                        });
+                    });
+                </script>
+
+                <script>
+                    //TO DO
+                    console.log();
+
+                    $("tr[status = 1]").attr('class', 'success');
+                    var alltab = d3.select('#alltab');
+                    var startertab = d3.select('#startertab');
+                    var membertab = d3.select('#membertab');
+                    var all = d3.select('#all');
+                    var starter = d3.select('#starter');
+                    var member = d3.select('#member');
+
+                    alltab.on('click', function() {
+                        alltab.classed('active', true);
+                        startertab.classed('active', false);
+                        membertab.classed('active', false);
+
+                    });
+                </script>
+
+</body>
+
+</html>
