@@ -55,6 +55,77 @@ pool.getConnection(function(err, connection) {
         });
     };
 
+    //更新用户选项
+    Option.updateOption = function(aid, username, content, origincontent, callback) {
+      var updateOption_Sql = "update activityoption set content = ? where (aid = ? and username = ?);";
+
+
+      connection.query(updateOption_Sql, [content, aid, username], function(err, result) {
+          if (err) {
+              console.log("updateOption Error: " + err.message);
+              return;
+          }
+          console.log("invoked[updateOption_Sql]");
+
+          //同时重新activityinfo里面的totalnum
+          content_arr = content.split(';');
+          content_arr.forEach(function(value, index) {
+            content_arr[index] = content_arr[index].split(',');
+          });
+
+          origincontent_arr = origincontent.split(';');
+          origincontent_arr.forEach(function(value, index) {
+            origincontent_arr[index] = origincontent_arr[index].split(',');
+          });
+
+          console.log('content_arr && origincontent_arr!!');
+          console.log(content_arr);
+          console.log(origincontent_arr);
+
+
+          var gettotalnum_Sql = "select totalnum from activityinfo where aid = ?";
+          connection.query(gettotalnum_Sql, [aid], function(err, totnum){
+            totnum = totnum[0].totalnum;
+
+            totnum_arr = totnum.split(';');
+            totnum_arr.forEach(function(value, index){
+              totnum_arr[index] = totnum_arr[index].split(',');
+            });
+
+            newtotnum = "";
+            for (var i = 0; i < totnum_arr.length; i++) {
+              for (var j = 0; j < totnum_arr[0].length; j++) {
+                if (j>0) newtotnum += ',';
+                totnum_arr[i][j] = parseInt(totnum_arr[i][j]) + parseInt(content_arr[i][j]) - parseInt(origincontent_arr[i][j]);
+                newtotnum += totnum_arr[i][j];
+              }
+              if (i<totnum_arr.length - 1) newtotnum +=';';
+            }
+
+            console.log('update totnum of actinfo!!');
+            console.log(newtotnum);
+
+            var updatenewtotnum_Sql = "update activityinfo set totalnum = ? where aid = ? ";
+            connection.query(updatenewtotnum_Sql, [newtotnum, aid], function(err, updatetotnumresult){
+              if (err) {
+                  console.log("updatetotnumresult Error: " + err.message);
+                  return;
+              }
+              callback(err, updatetotnumresult);
+            });
+
+
+
+          });
+
+
+
+          //callback(err, result);
+          //connection.release();
+      });
+
+    };
+
     //通过oid获取活动信息
     Option.getOptionByOid = function getOptionById(oid, callback) {
       var getOptionById_Sql = "SELECT * FROM activityoption WHERE oid = ?";
@@ -83,7 +154,6 @@ pool.getConnection(function(err, connection) {
       });
     };
 
-
     //获取用户username的所有活动
     Option.getActivityByUsername = function getActivityByUsername(username, callback) {
         var getActivityByUsername_Sql = "SELECT activityinfo.aid as aid, activityinfo.activityname as activityname, activityinfo.starter as starter, activityinfo.votestatus as votestatus FROM activityinfo, activityoption WHERE (activityoption.username = ? and activityinfo.aid = activityoption.aid)";
@@ -103,5 +173,5 @@ pool.getConnection(function(err, connection) {
         });
       };
 
-  
+
 });

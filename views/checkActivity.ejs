@@ -39,6 +39,10 @@
               已结束
           <% } %>
 
+          <% if (voteinfo.starter == user.username && voteinfo.votestatus == 1) { %>
+              <a href="/checkActivity/close">关闭投票</a>
+          <% }%>
+
 
         </small>
 
@@ -99,11 +103,23 @@
                               <% allresultrow.forEach(function (valueall, j) { %>
                                 <td>
                                   <% if (voteinfo.personalresult[i][j] == 1) { %>
-                                       <input type="checkbox" name=<%= 'c'+ i + '_' + j%> checked>
+
+                                    <% if (voteinfo.votestatus == 1) { %>
+                                        <input type="checkbox" name=<%= 'c'+ i + '_' + j%> checked>
+                                    <% }else{ %>
+                                        <input class = "disabled" type="checkbox" name=<%= 'c'+ i + '_' + j%> checked >
+                                    <% } %>
+
+
+
 
                                   <% } else { %>
 
-                                        <input type="checkbox" name=<%= 'c'+ i + '_' + j%>>
+                                    <% if (voteinfo.votestatus == 1) { %>
+                                        <input type="checkbox" name=<%= 'c'+ i + '_' + j%> >
+                                    <% }else{ %>
+                                        <input class = "disabled" type="checkbox" name=<%= 'c'+ i + '_' + j%> >
+                                    <% } %>
 
                                   <% } %>
 
@@ -119,7 +135,9 @@
                     </tbody>
 
                   </table>
-
+                      <input class = "hidden" type="text" name="totcolnum" value=  <%= voteinfo.colname.length %> >
+                      <input class = "hidden" type="text" name="totrownum" value=  <%= voteinfo.rowname.length %> >
+                      <input class = "hidden" type="text" name="origincontent" value=  <%= voteinfo.origincontent %> >
                       <div><button type="submit" class="button button-3d button-royal">确认修改</button></div>
 
                 </form>
