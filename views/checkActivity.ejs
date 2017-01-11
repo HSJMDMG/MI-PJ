@@ -68,20 +68,26 @@
 
 <!-------------------->
 <div>
+  <form role="form" method="POST">
 <table class = "table table-bordered">
-        <thead>
-          <tr>
-            <th></th>
 
-            <% voteinfo.colname.forEach(function(value){ %>
-                <th>
-                    <%= value %>
-                </th>
-                <%})%>
-          </tr>
-        </thead>
-        <tbody>
 
+
+
+
+
+                    <thead>
+                      <tr>
+                        <th></th>
+
+                        <% voteinfo.colname.forEach(function(value){ %>
+                            <th>
+                                <%= value %>
+                            </th>
+                            <%})%>
+                      </tr>
+                    </thead>
+                    <tbody>
 
                       <% voteinfo.allresult.forEach(function(allresultrow, i){ %>
 
@@ -93,13 +99,11 @@
                               <% allresultrow.forEach(function (valueall, j) { %>
                                 <td>
                                   <% if (voteinfo.personalresult[i][j] == 1) { %>
-                                    <div class="checkbox">
-
-                                       <input type="checkbox" checked>
+                                       <input type="checkbox" name=<%= 'c'+ i + '_' + j%> checked>
 
                                   <% } else { %>
 
-                                        <input type="checkbox">
+                                        <input type="checkbox" name=<%= 'c'+ i + '_' + j%>>
 
                                   <% } %>
 
@@ -112,9 +116,15 @@
 
                       <%})%>
 
-        </tbody>
+                    </tbody>
 
-      </table>
+                  </table>
+
+                      <div><button type="submit" class="button button-3d button-royal">确认修改</button></div>
+
+                </form>
+
+
 
   </div>
 
