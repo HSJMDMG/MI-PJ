@@ -66,6 +66,8 @@ function result_formatter(rawData, format) {
     }
 }
 
+
+
 router.get('/', function(req, res, next) {
     console.log('checkActivity: req.aid, req.cookies.aid');
 
@@ -75,6 +77,14 @@ router.get('/', function(req, res, next) {
     if ((req.cookies.user !== null) && (req.cookies.aid !== null)) {
         var username = req.cookies.user.username;
         var aid = req.cookies.aid;
+        //如果没有加入这个投票，要添加option
+        Option.checkEmptyOption(aid, username, function(err, results){
+          if (err) {
+            res.redirect('/usrInfo');
+          }
+        });
+
+
         Activity.getVoteData(aid, username, function(err, results) {
             req.voteinfo = result_formatter(results, DB_TO_HTML);
             req.user = req.cookies.user;
@@ -90,6 +100,36 @@ router.get('/', function(req, res, next) {
 
 
 });
+
+router.get('/close', function(req, res, next) {
+    console.log('checkActivity: req.aid, req.cookies.aid');
+
+    //console.log(req.aid);
+    console.log(req.cookies.aid, req.cookies.user);
+    req.user = req.cookies.user;
+    req.aid = req.cookies.aid;
+
+    if ((req.cookies.user !== null) && (req.cookies.aid !== null)) {
+        var username = req.cookies.user.username;
+        var aid = req.cookies.aid;
+
+        Activity.closeVote(aid, function(err, results) {
+            if (err) {
+              res.redirect('/checkActivity');
+              return;
+            }
+
+            res.redirect('/checkActivity');
+        });
+
+    } else {
+        res.redirect('/usrInfo');
+    }
+
+
+
+});
+
 
 
 router.post('/', function(req, res) {

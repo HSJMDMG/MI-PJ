@@ -15,6 +15,7 @@
     "express-session": "latest",
     "morgan": "~1.7.0",
     "mysql": "latest",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "socket.io": "latest"
   }
 }

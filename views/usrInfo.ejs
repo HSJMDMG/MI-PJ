@@ -3,7 +3,6 @@
 
 <head>
     <title>Voter: 用户信息</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
 
@@ -19,13 +18,36 @@
 <body>
     <%if(typeof(user) !== 'undefined' && user){%>
 
-        <h1>你好 <%= user.username %>, 欢迎登录。 <small><a claa="btn" href="/usrInfo/logout">退出</a></small></h1>
+    <div class="col-lg-12">
+      <div class="col-lg-6">
+          <h1>你好 <%= user.username %>, 欢迎登录。 <small><a claa="btn" href="/usrInfo/logout">退出</a></small></h1>
+      </div>
+      <div class="col-lg-6">
+        <form role="form" method="post">
+          <div class="input-group">
+              <input type="text" class="form-control" name = "aid">
+              <span class="input-group-btn">
+                <button class="button-tiny button-royal" type="submit">搜索活动ID</button>
+              </span>
+          </div><!-- /input-group -->
+        </form>
+      </div>
+    </div>
+
+
+
+
+
+
+
 
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" id="alltab"><a>所有活动</a></li>
             <li role="presentation" id="startertab"><a>我发起的</a></li>
             <li role="presentation" id="membertab"><a>我参与的</a></li>
             <li><a href="/addActivity"><button class="button button-royal button-circle button-tiny"><i class="fa fa-plus">+</i></button></a></li>
+
+
         </ul>
         <div class="tab-content">
               <div class="tab-panel active" id="all">

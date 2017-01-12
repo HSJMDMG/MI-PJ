@@ -7,7 +7,6 @@
 
 
 
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
 
@@ -73,6 +72,15 @@
 <!-------------------->
 <div>
   <form role="form" method="POST">
+    <% if (voteinfo.votestatus == 1) { %>
+        <fieldset>
+    <% }else{ %>
+        <fieldset disabled>
+    <% } %>
+
+
+
+
 <table class = "table table-bordered">
 
 
@@ -138,8 +146,9 @@
                       <input class = "hidden" type="text" name="totcolnum" value=  <%= voteinfo.colname.length %> >
                       <input class = "hidden" type="text" name="totrownum" value=  <%= voteinfo.rowname.length %> >
                       <input class = "hidden" type="text" name="origincontent" value=  <%= voteinfo.origincontent %> >
-                      <div><button type="submit" class="button button-3d button-royal">确认修改</button></div>
-
+                      <div id="currentaid" class = "hidden" > <%= cookies.aid %> </div>
+                      <div><button type="submit" class="button button-3d button-royal" id = "modifybtn">确认修改</button></div>
+                  </fieldset>
                 </form>
 
 
@@ -163,10 +172,29 @@
   <script src='/javascripts/jquery.min.js'></script>
   <script src='/javascripts/icheck.min.js'></script>
   <script src='/javascripts/bootstrap.min.js'></script>
+  <script type="text/javascript">
+  var ws = io.connect('http://127.0.0.1:3000');
+
+
+
+            var aid = document.querySelector('#currentaid').innerHTML;
+
+              ws.on('update', function(msg){
+                 if (msg == aid) {location.reload(true);}
+              });
 
 
 
 
+            document.querySelector('#modifybtn').addEventListener('click', function(){
+
+                  ws.emit('modify', aid);
+
+          });
+
+
+
+  </script>
 
 
 

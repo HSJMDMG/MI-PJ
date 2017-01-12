@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var Activity = require('../models/activity.js');
 var DB_NAME = 'Voter';
 
 var pool = mysql.createPool({
@@ -54,6 +55,56 @@ pool.getConnection(function(err, connection) {
 
         });
     };
+
+    //检查是否存在选项，如果不存在则加入该活动
+    Option.checkEmptyOption = function(aid, username, callback) {
+      console.log('aid, username');
+      console.log(aid, username);
+      var checkEmptyOption_Sql = "select *  from activityoption  where (aid = ? and username = ?)";
+      connection.query(checkEmptyOption_Sql, [aid, username], function(err, result){
+        if (err) {
+            console.log("checkEmptyOption Error: " + err.message);
+            return;
+        }
+
+        console.log(result);
+        if (result.length === 0) {
+          Activity.getVoteType(aid, function(err,result){
+            if (err) {
+                console.log("getVoteType Error: " + err.message);
+                return;
+            }
+
+            if (result[0].votetype == "WeekDay") {
+              var default_option = "0,0,0,0,0";
+              var newOption = new Option({
+                oid: 0,
+                aid: aid,
+                username: username,
+                content: default_option
+                }
+              );
+
+              newOption.save(function (err,result) {
+                if (err) {
+                  console.log("newOptionSave Error: " + err.message);
+                  return;
+                }
+                callback(err, result);
+              });
+
+            }
+          });
+
+        }
+      else {
+          callback(err, result);
+      }
+      });
+
+
+    }
+
 
     //更新用户选项
     Option.updateOption = function(aid, username, content, origincontent, callback) {

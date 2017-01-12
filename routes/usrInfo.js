@@ -45,12 +45,25 @@ router.post('/', function(req, res) {
     console.log('usrInfo: aid-->chech act');
     //console.log(req.aid);
     res.cookie("aid", req.body.aid, {maxAge: 5 * 600000 , httpOnly: false});
+    var aid = req.body.aid;
+    var username = req.cookies.user.username;
 
+    Option.checkEmptyOption(aid, username, function(err, result) {
+      console.log('miaomiaomiao?!');
+      if (err) {
+          res.locals.error = err;
+          res.render('/userInfo');
+          return;
+      }
+
+      res.redirect('/checkActivity');
+
+    });
     //req.cookies.aid = req.aid;
     //console.log(req.body);
     //console.log(req);
 
-    res.redirect('/checkActivity');
+
 });
 
 

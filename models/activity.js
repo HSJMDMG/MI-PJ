@@ -131,4 +131,29 @@ pool.getConnection(function(err, connection) {
         });
     };
 
+    //获得投票的类型
+    Activity.getVoteType = function getVoteType(aid, callback) {
+      var getVoteType_Sql = "SELECT votetype FROM activityinfo WHERE aid = ?";
+      connection.query(getVoteType_Sql, [aid], function(err, result) {
+          if (err) {
+              console.log("getVoteType_Sql Error: " + err.message);
+              return;
+          }
+          callback(err, result);
+        });
+    };
+
+    Activity.closeVote = function closeVote(aid, callback) {
+      var closeVote_Sql = "update activityinfo set votestatus = 0 where aid = ? ;";
+      connection.query(closeVote_Sql, [aid], function(err, result) {
+          if (err) {
+              console.log("closeVote_Sql Error: " + err.message);
+              return;
+          }
+          callback(err, result);
+        });
+    };
+
+
+
 });
