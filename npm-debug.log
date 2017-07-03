@@ -9,8 +9,8 @@
 6 silly lifecycle voter@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle voter@0.0.0~start: voter@0.0.0
 8 verbose lifecycle voter@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle voter@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/luying/Documents/大学/大三上/移动互联网/Voter/node_modules/.bin:/usr/local/Cellar/node/6.7.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin
-10 verbose lifecycle voter@0.0.0~start: CWD: /Users/luying/Documents/大学/大三上/移动互联网/Voter
+9 verbose lifecycle voter@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/luying/Documents/Undergraduate/大三上/移动互联网/期末PJ/Voter/node_modules/.bin:/usr/local/Cellar/node/6.7.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin
+10 verbose lifecycle voter@0.0.0~start: CWD: /Users/luying/Documents/Undergraduate/大三上/移动互联网/期末PJ/Voter
 11 silly lifecycle voter@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle voter@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle voter@0.0.0~start: Failed to exec start script
@@ -25,8 +25,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid voter@0.0.0
-16 verbose cwd /Users/luying/Documents/大学/大三上/移动互联网/Voter
-17 error Darwin 16.1.0
+16 verbose cwd /Users/luying/Documents/Undergraduate/大三上/移动互联网/期末PJ/Voter
+17 error Darwin 16.6.0
 18 error argv "/usr/local/Cellar/node/6.7.0/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.7.0
 20 error npm  v3.10.7
